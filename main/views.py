@@ -9,3 +9,12 @@ def home(request):
 
 def about(request):
     return render(request, 'main/about.html')
+
+def startpage(request):
+    return render(request, 'main/startpage.html')
+
+def searchMusicmates(request):
+    if request.user.is_authenticated:
+        return render(request, 'main/searchMusicmates.html')
+    else:
+        return redirect('login')
