@@ -4,11 +4,14 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.conf import settings
+from autoslug import AutoSlugField
+
 
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.DO_NOTHING, related_name='profile')
+    #user = models.OneToOneField(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     profile_image = models.ImageField(upload_to='avatars', default='avatars/guest.png')
     cover_image = models.ImageField(upload_to='avatars', default='avatars/cover.png')
     phone = models.CharField(max_length=20, blank=True)
@@ -20,6 +23,8 @@ class Profile(models.Model):
     music_style = models.CharField(max_length=20, blank=True)
     role = models.CharField(max_length=20, blank=True)
     friends = models.ManyToManyField("Profile", blank=True)
+    slug = AutoSlugField(populate_from='user')
+
 
     def __str__(self):
 	    return str(self.user.username)

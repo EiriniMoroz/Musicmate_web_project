@@ -1,0 +1,20 @@
+
+.hello-msg{
+  font-size: 18px;
+  color: #ff1;
+  margine-right: 20px;}
+  ::marker{
+    color: #7a1;
+    font-size: 0.0em;}
+
+    .h6{
+      font-size: 130%;
+      color:#36383a;
+    }
+    .carousel-inner>.item>img, .carousel-inner>.item>a>img {
+    display: block;
+    height: auto;
+    max-width: 100%;
+    line-height: 1;
+    width: 100%; // Add this
+    }

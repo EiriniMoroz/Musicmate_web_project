@@ -24,6 +24,7 @@ urlpatterns = [
     path('', include('main.urls')),
     path('', include('userprofile.urls')),
     path('users/', include('users.urls')),
-    re_path(r'^favicon\.ico$', favicon_view),
+    re_path(r'^favicon\.ico$', favicon_view)
+
 
 ]

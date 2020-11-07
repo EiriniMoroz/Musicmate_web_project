@@ -4,27 +4,23 @@
   <head>
     <meta charset="utf-8">
     <title>Musicmate</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'css/1.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <!--link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"-->
+    <!--link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700"-->
+
+
+
+    <!--link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"-->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
-    <link rel="stylesheet" type="text/css" href="https://storage.googleapis.com/bytewalk/profilepage.css">
-    <link rel="stylesheet" type="text/css" href="https://storage.googleapis.com/bytewalk/styles.css">
+
     <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
-    {% include 'includes/stylesheets.html' %}
+    {% block cssfiles %}{% endblock cssfiles %}
+
 
   </head>
   <body>
-    <style>
-      .hello-msg{
-        font-size: 18px;
-        color: #ff1;
-        margine-right: 20px;}
-        ::marker{
-          color: #7a1;
-          font-size: 0.0em;}
-      </style>
       <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 
@@ -37,7 +33,7 @@
       <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
           <li class="nav-item active">
-            <a class="nav-link" href="{% url 'searchMusicmates' %}">Search your musicmates<span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="{% url 'searchMusicmatesForm' %}">Search your musicmates<span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{% url 'about' %}">What is Musicmate?</a>

@@ -1,0 +1,51 @@
+{% extends 'main/navBar.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <br/>
+	<div class="row justify-content-center">
+                        <div class="col-12 col-md-10 col-lg-8">
+                            <form class="card card-sm" action="{% url 'searchMusicmates' %}" method="get">
+                                <div class="card-body row no-gutters align-items-center">
+                                    <div class="col-auto">
+                                        <i class="fas fa-search h4 text-body"></i>
+                                    </div>
+                                    <!--end of col-->
+                                    <div class="col">
+                                        <input  name="q" class="form-control form-control-lg form-control-borderless" type="text" placeholder="Enter the city">
+                                    </div>
+                                    <!--end of col-->
+                                    <div class="col-auto">
+                                        <button class="btn btn-lg btn-success" type="submit">Search</button>
+                                    </div>
+                                    <!--end of col-->
+                                </div>
+                            </form>
+                        </div>
+                        <!--end of col-->
+                    </div>
+</div>
+
+
+<div class="container">
+	    <div class="row">
+	      <div class="col-md-8">
+	      	{% if not users %}
+	      	<br><br>
+	      	<h2><i>No such users found!</i></h2>
+	      	{% else %}
+	      	<div class="card card-signin my-5">
+	        <div class="card-body">
+	        {% for user_p in users %}
+	          	<a href="{{ user_p.profile.get_absolute_url }}"><img src="{{ user_p.profile.profile_image.url }}" class="rounded mr-2" width="40" height="40" alt=""></a>
+	          	<a class="text-dark" href="{{ user_p.profile.get_absolute_url }}"><b>{{ user_p }}</b></a>
+	          	<br><br>
+	        {% endfor %}
+	    	</div>
+	    	</div>
+	    	{% endif %}
+	  	   </div>
+       </div>
+</div>
+{% endblock %}
