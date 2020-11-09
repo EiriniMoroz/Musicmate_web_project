@@ -5,16 +5,21 @@ from userprofile.models import Profile
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
 from django.contrib.auth import get_user_model
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
+from django.template.context_processors import csrf
 
 User = get_user_model()
 
-
+@login_required
 def edit_profile(request):
     if request.method == 'POST':
         u_form = UserUpdateForm(request.POST, instance=request.user)
         #profile = Profile()
+
         #profile.user = request.user
+        #profile.save()
+
         p_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
         if u_form.is_valid() and p_form.is_valid():
             u_form.save()
@@ -26,11 +31,12 @@ def edit_profile(request):
         #profile = Profile()
         #profile.user = request.user
         #profile.save()
-        p_form = ProfileUpdateForm(instance=request.user.userprofile)
+        p_form = ProfileUpdateForm(instance=request.user.profile)
         context ={
         'u_form': u_form,
         'p_form': p_form,
         }
+        context.update(csrf(request))#
     return render(request, 'userprofile/edit-my-profile.html',context)
 
 def searchMusicmates(request):

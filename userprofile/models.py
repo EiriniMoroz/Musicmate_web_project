@@ -6,8 +6,8 @@ from django.dispatch import receiver
 from django.conf import settings
 from autoslug import AutoSlugField
 
-
-
+from django.dispatch import receiver
+from django.db.models.signals import post_save
 
 class Profile(models.Model):
     #user = models.OneToOneField(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
@@ -36,9 +36,21 @@ class Profile(models.Model):
 
 
 class FriendRequest(models.Model):
-	to_user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='to_user', on_delete=models.CASCADE)
+	to_user = models.OneToOneField(settings.AUTH_USER_MODEL, related_name='to_user', on_delete=models.CASCADE)
 	from_user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='from_user', on_delete=models.CASCADE)
 	timestamp = models.DateTimeField(auto_now_add=True)
 
 	def __str__(self):
 		return "From {}, to {}".format(self.from_user.username, self.to_user.username)
+
+
+
+
+@receiver(post_save, sender=User, dispatch_uid='save_new_user_profile')
+def save_profile(sender, instance, created, **kwargs):
+    user = instance
+    if created:
+        profile = Profile(user=user)
+        profile.save()
+
+#post_save.connect(save_profile, sender=User)
