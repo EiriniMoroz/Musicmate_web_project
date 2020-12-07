@@ -52,7 +52,8 @@
             My profile
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="#">My friends</a>
+            <a class="dropdown-item" href="{% url 'view-profile' request.user.profile.slug %}">View my profile</a>
+            <a class="dropdown-item" href="{% url 'friend_list' %}">My friends</a>
             <a class="dropdown-item" href="{% url 'edit' %}">Edit my profile</a>
             <a class="dropdown-item" href="{% url 'logout' %}">Log out</a>
           </div>

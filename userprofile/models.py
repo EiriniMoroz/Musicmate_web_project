@@ -24,6 +24,7 @@ class Profile(models.Model):
     role = models.CharField(max_length=20, blank=True)
     friends = models.ManyToManyField("Profile", blank=True)
     slug = AutoSlugField(populate_from='user')
+    is_organizer=models.BooleanField(default=False)
 
 
     def __str__(self):

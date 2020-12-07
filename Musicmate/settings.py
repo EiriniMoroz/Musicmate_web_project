@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = '14z%m5%eir51nm-yr+n(pd@^n=%u=(9&lwgu&+@t913e+4!d9x'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = False 
 
 ALLOWED_HOSTS = ['your-musicmate.herokuapp.com','127.0.0.1']
 
@@ -43,6 +43,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'djoser',
+    'rest_framework',
+    'rest_framework_simplejwt',
 ]
 
 MIDDLEWARE = [
@@ -128,11 +131,15 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+#STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
 
 LOGIN_REDIRECT_URL = 'home'
 LOGIN_URL = 'login'
@@ -144,7 +151,7 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 
-DEFAULT_FILE_STORAGE = 'django_gcloud_storage.DjangoGCloudStorage'
+#DEFAULT_FILE_STORAGE = 'django_gcloud_storage.DjangoGCloudStorage'
 
 
 #GCS_PROJECT = os.environ.get('GCS_PROJECT')
@@ -153,3 +160,8 @@ DEFAULT_FILE_STORAGE = 'django_gcloud_storage.DjangoGCloudStorage'
 #GCS_USE_UNSIGNED_URLS = True
 
 #AUTH_PROFILE_MODULE = 'base.userprofile'
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+}
