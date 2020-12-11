@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, UpdateView
 from userprofile.models import Profile, FriendRequest
@@ -11,6 +11,7 @@ from rest_framework.permissions import IsAuthenticated
 from .models import Profile
 from .permissions import IsOwnerProfileOrReadOnly
 from .serializers import userProfileSerializer
+from django.http import HttpResponseRedirect
 
 from django.template.context_processors import csrf
 
@@ -105,3 +106,45 @@ def friend_list(request):
 	'friends': friends
 	}
 	return render(request, "userprofile/friend_list.html", context)
+
+@login_required
+def send_friend_request(request, id):
+	user = get_object_or_404(User, id=id)
+	frequest, created = FriendRequest.objects.get_or_create(
+			from_user=request.user,
+			to_user=user)
+	return HttpResponseRedirect('/user/{}'.format(user.profile.slug))
+
+@login_required
+def cancel_friend_request(request, id):
+	user = get_object_or_404(User, id=id)
+	frequest = FriendRequest.objects.filter(
+			from_user=request.user,
+			to_user=user).first()
+	frequest.delete()
+	return HttpResponseRedirect('/user/{}'.format(user.profile.slug))
+
+@login_required
+def accept_friend_request(request, id):
+	from_user = get_object_or_404(User, id=id)
+	frequest = FriendRequest.objects.filter(from_user=from_user, to_user=request.user).first()
+	user1 = frequest.to_user
+	user2 = from_user
+	user1.profile.friends.add(user2.profile)
+	user2.profile.friends.add(user1.profile)
+	frequest.delete()
+	return HttpResponseRedirect('/user/{}'.format(request.user.profile.slug))
+
+@login_required
+def delete_friend_request(request, id):
+	from_user = get_object_or_404(User, id=id)
+	frequest = FriendRequest.objects.filter(from_user=from_user, to_user=request.user).first()
+	frequest.delete()
+	return HttpResponseRedirect('/user/{}'.format(request.user.profile.slug))
+
+def delete_friend(request, id):
+	user_profile = request.user.profile
+	friend_profile = get_object_or_404(Profile, id=id)
+	user_profile.friends.remove(friend_profile)
+	friend_profile.friends.remove(user_profile)
+	return HttpResponseRedirect('/user/{}'.format(friend_profile.slug))

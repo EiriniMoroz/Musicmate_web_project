@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = '14z%m5%eir51nm-yr+n(pd@^n=%u=(9&lwgu&+@t913e+4!d9x'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False 
+DEBUG = True
 
 ALLOWED_HOSTS = ['your-musicmate.herokuapp.com','127.0.0.1']
 
@@ -46,6 +46,9 @@ INSTALLED_APPS = [
     'djoser',
     'rest_framework',
     'rest_framework_simplejwt',
+    'storages',
+    'dropbox',
+    'django_dropbox_storage'
 ]
 
 MIDDLEWARE = [
@@ -128,18 +131,19 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))#
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media') # 'https://dl.dropboxusercontent.com/'
 MEDIA_URL = '/media/'
-#STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')#
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
+#STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage' #
+#STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')#
 
 LOGIN_REDIRECT_URL = 'home'
 LOGIN_URL = 'login'
@@ -165,3 +169,10 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
 }
+#DEFAULT_FILE_STORAGE = 'storages.backends.dropbox.DropBoxStorage'
+DROPBOX_OAUTH2_TOKEN='sl.AnJpYsOY5C6v9woQy_YYA4Iotg8sRl61A_B8ncHOrmX_3n2wOo6LJEIO9tgbtgxaY3Iv3yyAE9yK0yTdXM1eqvAM7S2NPCbpUqgoCjjnYf8TRxhag7mDthrjEVK68DNpwTXHyvo'
+DROPBOX_ROOT_PATH='media'
+
+DROPBOX_CONSUMER_KEY = 'hjb2cosepfs7bs2'
+DROPBOX_CONSUMER_SECRET ='bwsomx5xaszn50e'
+DROPBOX_ACCESS_TOKEN='sl.AnJpYsOY5C6v9woQy_YYA4Iotg8sRl61A_B8ncHOrmX_3n2wOo6LJEIO9tgbtgxaY3Iv3yyAE9yK0yTdXM1eqvAM7S2NPCbpUqgoCjjnYf8TRxhag7mDthrjEVK68DNpwTXHyvo'

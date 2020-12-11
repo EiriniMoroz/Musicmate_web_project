@@ -5,15 +5,22 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.conf import settings
 from autoslug import AutoSlugField
-
+import dropbox
 from django.dispatch import receiver
 from django.db.models.signals import post_save
+from django.conf import settings
+
+#from django_dropbox_storage.storage import DropboxStorage
+
+#DROPBOX_STORAGE = DropboxStorage()
+#dbx = dropbox.Dropbox(settings.DROPBOX_OAUTH2_TOKEN)
+
 
 class Profile(models.Model):
     #user = models.OneToOneField(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    profile_image = models.ImageField(upload_to='avatars', default='avatars/guest.png')
-    cover_image = models.ImageField(upload_to='avatars', default='avatars/cover.png')
+    profile_image = models.ImageField(upload_to='avatars', default='avatars/guest.png')#,storage=DROPBOX_STORAGE) #, storage=dbx)
+    cover_image = models.ImageField(upload_to='avatars', default='avatars/cover.png')#,storage=DROPBOX_STORAGE)#, storage=dbx)
     phone = models.CharField(max_length=20, blank=True)
     city = models.CharField(max_length=20, blank=True)
     country = models.CharField(max_length=20, blank=True)
@@ -32,7 +39,7 @@ class Profile(models.Model):
 
     def get_absolute_url(self):
 
-        return "/userprofile/{}".format(self.slug)
+        return "/view_profile/{}".format(self.slug)
 
 
 

@@ -38,8 +38,10 @@
 	      	<div class="card card-signin my-5">
 	        <div class="card-body">
 	        {% for user_p in users %}
-	          	<a href="{{ user_p.profile.get_absolute_url }}"><img src="{{ user_p.profile.profile_image.url }}" class="rounded mr-2" width="40" height="40" alt=""></a>
-	          	<a class="text-dark" href="{{ user_p.profile.get_absolute_url }}"><b>{{ user_p }}</b></a>
+	          	<a href="{{ user_p.get_absolute_url }}"><img src="{{ user_p.profile_image.url }}" class="rounded mr-2" width="40" height="40" alt=""></a>
+	          	<a class="text-dark" href="{{ user_p.get_absolute_url }}"><b>{{ user_p }}</b></a>
+              <a class="text-dark" href="{{ user_p.get_absolute_url }}"><b>{{ user_p.city }}</b></a>
+
 	          	<br><br>
 	        {% endfor %}
 	    	</div>
