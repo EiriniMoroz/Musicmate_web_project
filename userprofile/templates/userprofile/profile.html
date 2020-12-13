@@ -39,6 +39,9 @@
                   {{ u }}
               </h3>
                 <p>{{ u.profile.city }}</p>
+								<p>role: {{ u.profile.role }}</p>
+								<p>music style: {{ u.profile.music_style }}</p>
+
                 <hr class="my-2">
                 {% if request.user == u %}
                 <a class="btn btn-info" href="{% url 'edit' %}">Edit Profile</a>

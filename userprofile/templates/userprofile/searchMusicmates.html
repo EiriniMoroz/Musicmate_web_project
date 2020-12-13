@@ -38,11 +38,13 @@
 	      	<div class="card card-signin my-5">
 	        <div class="card-body">
 	        {% for user_p in users %}
-	          	<div>
-                <a href="{{ user_p.get_absolute_url }}"><img src="{{ user_p.profile_image.url }}" class="rounded mr-2" width="40" height="40" alt=""></a>
+	          	<div class="d-flex">
+                <a href="{{ user_p.get_absolute_url }}"><img src="{{ user_p.profile_image.url }}"
+                  class="rounded mr-2" width="40" height="40" alt=""></a>
+                <div class="d-flex flex-column">
                 <a class="text-dark" href="{{ user_p.get_absolute_url }}"><b>{{ user_p }}</b></a>
-                <a><p>{{ user_p.role }}</p></a>
-                <a><p>{{ user_p.music_style }}</p></a>
+                <a><p>role: {{ user_p.role }}</p></a>
+              </div>
               </div>
 	          	<br><br>
 	        {% endfor %}
